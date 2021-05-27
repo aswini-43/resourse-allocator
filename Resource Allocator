@@ -21,41 +21,49 @@ new_nodes_east=[]
 count_east=[]
 new_nodes_west=[]
 count_west=[]
-def east(new_nodes_east,count_east,counte):
-    servers=[]
-    print("servers:")
-    for i in range(counte):
-        servers.append(new_nodes_east[i])
-        servers.append(count_east[i])
-    print(servers)
+def server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,price_east,price_west):
+    servere=[]
     
-def west(new_nodes_west,count_west,countw):
-    servers=[]
-    for i in range(countw):
-        servers.append(new_nodes_west[i])
-        servers.append(count_west[i])
-    print(servers)
-def east_statement(price_east,count_east,counte):
-    result_east={}
-    result_east["Region"]="us-east"
-    result_east["Total-cost$"]=round(price_east,2)
-    print(result_east)
-    east(new_nodes_east,count_east,counte)
-def west_statement(price_west,count_west,countw):    
+    server=zip(new_nodes_east,count_east)
+    servere=list(server)
+    serverw=[]
+    server=zip(new_nodes_west,count_west)
+    serverw=list(server)
+    result(price_east,price_west,servere,serverw)
+    
+    
+    
+    
+def result(price_east,price_west,servere,serverw):
+    final=[]
+    
+    result={}
+    result["Region"]="us-east"
+    result["Total-cost$"]=round(price_east,2)
+    result["servers"]=servere
+    
+    
     result_west={}
     result_west["Region"]="us-west"
     result_west["Total-cost $"]=round(price_west,2)
-    print(result_west)
-    west(new_nodes_west,count_west,countw)
-
+    result_west["servers"]=serverw
+    
+    final.append(result)
+    final.append(result_west)
+    print(*final, sep="\n")
+    
+    
+    
     
 
         
 def type_one(cpus,hours,price_east,price_west):
     counte=0
     countw=0
-    for i in us_east:
-        while(cpus!=0):
+    while(cpus!=0):
+        cpu=cpus
+        for i in us_east:
+        
             if(cpus>=32):
                 count_of_32_east=int(cpus/32)
                 price_east+=count_of_32_east*us_east["10xlarge"]
@@ -100,10 +108,11 @@ def type_one(cpus,hours,price_east,price_west):
                 new_nodes_east.append("large")
                 count_east.append(count_of_1_east)
                 counte+=1
+        cpus=cpu
     
     
-    for j in us_west:
-        while(cpus!=0):
+        for j in us_west:
+        
             if(cpus>=32):
                 count_of_32_west=int(cpus/32)
                 price_west+=count_of_32_west*us_west["10xlarge"]
@@ -141,8 +150,7 @@ def type_one(cpus,hours,price_east,price_west):
                 countw+=1
     
    
-    east_statement(price_east,count_east,counte)
-    west_statement(price_west,count_west,countw)
+    server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,price_east,price_west)
 def type_two(cpu,hours,price):
     for i in us_east:
             if(price>=us_east["10xlarge"]):
