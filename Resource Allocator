@@ -21,98 +21,128 @@ new_nodes_east=[]
 count_east=[]
 new_nodes_west=[]
 count_west=[]
-def east(new_nodes_east,count_east):
-    servers={}
-    for i in range(6):
-        servers["new_nodes_east[i],"]=count_east[i]
-def west(new_nodes_west,count_west):
-    servers={}
-    for i in new_nodes_west:
-        servers["new_nodes_west[i],"]=count_west[i]
-def print_statement(price,count_west,count_east):
-    result={}
-    result["Region:"]="us-east"
-    result["Total-cost:$"]=price
-    result["servers"]=[]
-    east(new_nodes_east,count_east)
+def east(new_nodes_east,count_east,counte):
+    servers=[]
+    print("servers:")
+    for i in range(counte):
+        servers.append(new_nodes_east[i])
+        servers.append(count_east[i])
+    print(servers)
+    
+def west(new_nodes_west,count_west,countw):
+    servers=[]
+    for i in range(countw):
+        servers.append(new_nodes_west[i])
+        servers.append(count_west[i])
+    print(servers)
+def east_statement(price_east,count_east,counte):
+    result_east={}
+    result_east["Region"]="us-east"
+    result_east["Total-cost$"]=round(price_east,2)
+    print(result_east)
+    east(new_nodes_east,count_east,counte)
+def west_statement(price_west,count_west,countw):    
+    result_west={}
+    result_west["Region"]="us-west"
+    result_west["Total-cost $"]=round(price_west,2)
+    print(result_west)
+    west(new_nodes_west,count_west,countw)
+
+    
 
         
-def type_one(cpus,hours,price):
+def type_one(cpus,hours,price_east,price_west):
+    counte=0
+    countw=0
     for i in us_east:
         while(cpus!=0):
             if(cpus>=32):
                 count_of_32_east=int(cpus/32)
-                price+=count_of_32_east*us_east["10xlarge"]
+                price_east+=count_of_32_east*us_east["10xlarge"]
                 cpus=cpus-(count_of_32_east*32)
                 new_nodes_east.append("10xlarge")
                 count_east.append(count_of_32_east)
+                counte+=1
             elif(cpus>=16 and cpus<32):
                 count_of_16_east=int(cpus/16)
-                price+=count_of_16_east*us_east["8xlarge"]
+                price_east+=count_of_16_east*us_east["8xlarge"]
                 cpus=cpus-(count_of_16_east*16)
                 new_nodes_east.append("8xlarge")
                 count_east.append(count_of_16_east)
+                counte+=1
             elif(cpus>=8 and cpus<16):
                 count_of_8_east=int(cpus/8)
-                price+=count_of_8_east*us_east["4xlarge"]
+                price_east+=count_of_8_east*us_east["4xlarge"]
                 cpus=cpus-(count_of_8_east*8)
                 new_nodes_east.append("4xlarge")
                 count_east.append(count_of_8_east)
+                counte+=1
             elif(cpus>=4 and cpus<8):
                 count_of_4_east=int(cpus/4)
-                price+=count_of_4_east*us_east["2xlarge"]
+                price_east+=count_of_4_east*us_east["2xlarge"]
                 cpus=cpus-(count_of_4_east*4)
                 new_nodes_east.append("2xlarge")
                 count_east.append(count_of_4_east)
+                counte+=1
             elif(cpus>=2 and cpus<4):
                 count_of_2_east=int(cpus/2)
-                price+=count_of_2_east*us_east["xlarge"]
+                price_east+=count_of_2_east*us_east["xlarge"]
                 cpus=cpus-(count_of_2_east*2)
                 new_nodes_east.append("xlarge")
                 count_east.append(count_of_2_east)
+                counte+=1
             elif(cpus==1):
                 
                 count_of_1_east=int(cpus/1)
-                price+=count_of_1_east*us_east["large"]
+                price_east+=count_of_1_east*us_east["large"]
                 
                 cpus=cpus-(count_of_1_east*1)
                 new_nodes_east.append("large")
                 count_east.append(count_of_1_east)
+                counte+=1
     
     
     for j in us_west:
         while(cpus!=0):
             if(cpus>=32):
                 count_of_32_west=int(cpus/32)
-                price+=count_of_32_west*us_west["10xlarge"]
+                price_west+=count_of_32_west*us_west["10xlarge"]
                 cpus=cpus-(count_of_32_west*32)
                 new_nodes_west.append("10xlarge")
                 count_west.append(count_of_32_west)
+                countw+=1
             elif(cpus>=16 and cpus<32):
                 count_of_16_west=int(cpus/16)
-                price+=count_of_16_west*us_west["8xlarge"]
+                price_west+=count_of_16_west*us_west["8xlarge"]
                 cpus=cpus-(count_of_16_west*16)
                 new_nodes_west.append("8xlarge")
                 count_west.append(count_of_16_west)
+                countw+=1
             elif(cpus>=8 and cpus<16):
                 count_of_8_west=int(cpus/8)
-                price+=count_of_8_west*us_west["4xlarge"]
+                price_west+=count_of_8_west*us_west["4xlarge"]
                 cpus=cpus-(count_of_8_west*8)
                 new_nodes_west.append("4xlarge")
                 count_west.append(count_of_8_west)
+                countw+=1
             elif(cpus>=4 and cpus<8):
                 count_of_4_west=int(cpus/4)
-                price+=count_of_4_west*us_west["2xlarge"]
+                price_west+=count_of_4_west*us_west["2xlarge"]
                 cpus=cpus-(count_of_4_west*4)
                 new_nodes_west.append("2xlarge")
                 count_west.append(count_of_4_west)
+                countw+=1
             elif(cpus>=1):
                 count_of_1_west=int(cpus/1)
-                price+=count_of_1_west*us_west["large"]
+                price_west+=count_of_1_west*us_west["large"]
                 cpus=cpus-(count_of_1_west*1)
                 new_nodes_west.append("large")
                 count_west.append(count_of_1_west)
-    print_statement(price,count_west,count_east)
+                countw+=1
+    
+   
+    east_statement(price_east,count_east,counte)
+    west_statement(price_west,count_west,countw)
 def type_two(cpu,hours,price):
     for i in us_east:
             if(price>=us_east["10xlarge"]):
@@ -164,8 +194,9 @@ def type_two(cpu,hours,price):
 
 if(types==1):
     cpus=int(input())
-    price=0
-    type_one(cpus,hours,price)
+    price_east=0
+    price_west=0
+    type_one(cpus,hours,price_east,price_west)
         
 
     
