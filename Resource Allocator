@@ -148,56 +148,103 @@ def type_one(cpus,hours,price_east,price_west):
                 new_nodes_west.append("large")
                 count_west.append(count_of_1_west)
                 countw+=1
+    price_east*=hours
+    price_west*=hours
     
    
     server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,price_east,price_west)
-def type_two(cpu,hours,price):
+    
+    
+def type_two(hours,price):
+    cost=price
+    counte=0
+    countw=0
     for i in us_east:
+            
             if(price>=us_east["10xlarge"]):
-                count_of_32=int(price/us_east["10xlarge"])
-                price=round(price-(count_of_32*us_east["10xlarge"]),1)
+                count_of_32_east=int(price/us_east["10xlarge"])
+                price=round(price-(count_of_32_east*us_east["10xlarge"]),1)
+                new_nodes_east.append("10xlarge")
+                count_east.append(count_of_32_east)
+                counte+=1
                 
             elif(price>=us_east["8xlarge"] and price<us_east["10xlarge"]):
-                count_of_16=int(price/us_east["8xlarge"])
-                price=round(price-(count_of_16*us_east["8xlarge"]),1)
+                count_of_16_east=int(price/us_east["8xlarge"])
+                price=round(price-(count_of_16_east*us_east["8xlarge"]),1)
+                new_nodes_east.append("8xlarge")
+                count_east.append(count_of_16_east)
+                counte+=1
                 
             elif(price>=us_east["4xlarge"] and price<us_east["8xlarge"]):
-                count_of_8=int(price/us_east["4xlarge"])
-                price=round(price-(count_of_8*us_east["4xlarge"]),1)
+                count_of_8_east=int(price/us_east["4xlarge"])
+                price=round(price-(count_of_8_east*us_east["4xlarge"]),1)
+                new_nodes_east.append("4xlarge")
+                count_east.append(count_of_8_east)
+                counte+=1
                 
             elif(price>=us_east["2xlarge"] and price<us_east["4xlarge"]):
-                count_of_4=int(price/us_east["2xlarge"])
-                price=round(price-(count_of_4*us_east["2xlarge"]),1)
+                count_of_4_east=int(price/us_east["2xlarge"])
+                price=round(price-(count_of_4_east*us_east["2xlarge"]),1)
+                new_nodes_east.append("2xlarge")
+                count_east.append(count_of_4_east)
+                counte+=1
+
             elif(price>=us_east["xlarge"] and price<us_east["2xlarge"]):
-                count_of_2=int(price/us_east["xlarge"])
-                price=round(price-(count_of_32*us_east["xlarge"]),1)
+                count_of_2_east=int(price/us_east["xlarge"])
+                price=round(price-(count_of_2_east*us_east["xlarge"]),1)
+                new_nodes_east.append("xlarge")
+                count_east.append(count_of_2_east)
+                counte+=1
                 
             elif(price>=us_east["large"]):
-                count_of_1=int(price/us_east["large"])
-                price=round(price-(count_of_32*us_east["large"]),1)
-                
+                count_of_1_east=int(price/us_east["large"])
+                price=round(price-(count_of_1_east*us_east["large"]),1)
+                new_nodes_east.append("large")
+                count_east.append(count_of_1_east)
+                counte+=1
+
+    price=cost            
     for j in us_west:
             if(price>=us_west["10xlarge"]):
-                count_of_32=int(price/us_west["10xlarge"])
-                price=round(price-(count_of_32*us_west["10xlarge"]),1)
+                count_of_32_west=int(price/us_west["10xlarge"])
+                price=round(price-(count_of_32_west*us_west["10xlarge"]),1)
+                new_nodes_west.append("10large")
+                count_west.append(count_of_32_west)
+                countw+=1
                 
             elif(price>=us_west["8xlarge"] and price<us_west["10xlarge"]):
-                count_of_16=int(price/us_west["8xlarge"])
-                price=round(price-(count_of_16*us_west["8xlarge"]),1)
+                count_of_16_west=int(price/us_west["8xlarge"])
+                price=round(price-(count_of_16_west*us_west["8xlarge"]),1)
+                new_nodes_west.append("8xlarge")
+                count_west.append(count_of_16_west)
+                countw+=1
                 
             elif(price>=us_west["4xlarge"] and price<us_west["8xlarge"]):
-                count_of_8=int(price/us_west["4xlarge"])
-                price=round(price-(count_of_8*us_west["4xlarge"]),1)
+                count_of_8_west=int(price/us_west["4xlarge"])
+                price=round(price-(count_of_8_west*us_west["4xlarge"]),1)
+                new_nodes_west.append("4xlarge")
+                count_west.append(count_of_8_west)
+                countw+=1
                 
             elif(price>=us_west["2xlarge"] and price<us_west["4xlarge"]):
-                count_of_4=int(price/us_west["2xlarge"])
-                price=round(price-(count_of_4*us_west["2xlarge"]),1)
+                count_of_4_west=int(price/us_west["2xlarge"])
+                price=round(price-(count_of_4_west*us_west["2xlarge"]),1)
+                new_nodes_west.append("2xlarge")
+                count_west.append(count_of_4_west)
+                countw+=1
                 
             elif(price>=us_west["large"]):
-                count_of_1=int(price/us_west["large"])
-                price=round(price-(count_of_1*us_west["large"]),1)
+                count_of_1_west=int(price/us_west["large"])
+                price=round(price-(count_of_1_west*us_west["large"]),1)
+                new_nodes_west.append("large")
+                count_west.append(count_of_1_west)
+                countw+=1
     
-        
+    price_east=cost*hours
+    price_west=cost*hours
+    server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,price_east,price_west)
+
+    
         
 
 if(types==1):
@@ -211,7 +258,7 @@ if(types==1):
 elif(types==2):
     price=round(int(input("$")))
     price/=hours
-    type_two(cpus,hours,price)
+    type_two(hours,price)
     
         
     
