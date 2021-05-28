@@ -29,10 +29,7 @@ def server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,pri
     serverw=[]
     server=zip(new_nodes_west,count_west)
     serverw=list(server)
-    result(price_east,price_west,servere,serverw)
-    
-    
-    
+    result(price_east,price_west,servere,serverw) 
     
 def result(price_east,price_west,servere,serverw):
     final=[]
@@ -42,7 +39,6 @@ def result(price_east,price_west,servere,serverw):
     result["Total-cost$"]=round(price_east,2)
     result["servers"]=servere
     
-    
     result_west={}
     result_west["Region"]="us-west"
     result_west["Total-cost $"]=round(price_west,2)
@@ -50,14 +46,10 @@ def result(price_east,price_west,servere,serverw):
     
     final.append(result)
     final.append(result_west)
-    print(*final, sep="\n")
-    
-    
-    
-    
+    print(final)
 
         
-def type_one(cpus,hours,price_east,price_west):
+def type_one(cpus,hours,price_east,price_west,price,t):
     counte=0
     countw=0
     while(cpus!=0):
@@ -150,15 +142,26 @@ def type_one(cpus,hours,price_east,price_west):
                 countw+=1
     price_east*=hours
     price_west*=hours
-    
-   
-    server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,price_east,price_west)
-    
-    
+    print(price_east)
+    if(t==1):
+        server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,price_east,price_west)
+    elif(price_east<=price and price_west<=price and t==3):
+        
+        server(new_nodes_east, count_east, counte, new_nodes_west, count_west, countw, price_east, price_west)
+    elif(t==3 and price_east>price and price_west>price):
+        new_nodes_east.clear()
+        new_nodes_west.clear()
+        count_east.clear()
+        count_west.clear()
+        type_two(hours,price)
+         
 def type_two(hours,price):
-    cost=price
+    
     counte=0
     countw=0
+    price=price/hours
+    print(price)
+    cost=price
     for i in us_east:
             
             if(price>=us_east["10xlarge"]):
@@ -168,12 +171,14 @@ def type_two(hours,price):
                 count_east.append(count_of_32_east)
                 counte+=1
                 
+                
             elif(price>=us_east["8xlarge"] and price<us_east["10xlarge"]):
                 count_of_16_east=int(price/us_east["8xlarge"])
                 price=round(price-(count_of_16_east*us_east["8xlarge"]),1)
                 new_nodes_east.append("8xlarge")
                 count_east.append(count_of_16_east)
                 counte+=1
+                
                 
             elif(price>=us_east["4xlarge"] and price<us_east["8xlarge"]):
                 count_of_8_east=int(price/us_east["4xlarge"])
@@ -182,12 +187,14 @@ def type_two(hours,price):
                 count_east.append(count_of_8_east)
                 counte+=1
                 
+
             elif(price>=us_east["2xlarge"] and price<us_east["4xlarge"]):
                 count_of_4_east=int(price/us_east["2xlarge"])
                 price=round(price-(count_of_4_east*us_east["2xlarge"]),1)
                 new_nodes_east.append("2xlarge")
                 count_east.append(count_of_4_east)
                 counte+=1
+                
 
             elif(price>=us_east["xlarge"] and price<us_east["2xlarge"]):
                 count_of_2_east=int(price/us_east["xlarge"])
@@ -196,12 +203,14 @@ def type_two(hours,price):
                 count_east.append(count_of_2_east)
                 counte+=1
                 
+                
             elif(price>=us_east["large"]):
                 count_of_1_east=int(price/us_east["large"])
                 price=round(price-(count_of_1_east*us_east["large"]),1)
                 new_nodes_east.append("large")
                 count_east.append(count_of_1_east)
                 counte+=1
+                
 
     price=cost            
     for j in us_west:
@@ -212,12 +221,14 @@ def type_two(hours,price):
                 count_west.append(count_of_32_west)
                 countw+=1
                 
+                
             elif(price>=us_west["8xlarge"] and price<us_west["10xlarge"]):
                 count_of_16_west=int(price/us_west["8xlarge"])
                 price=round(price-(count_of_16_west*us_west["8xlarge"]),1)
                 new_nodes_west.append("8xlarge")
                 count_west.append(count_of_16_west)
                 countw+=1
+                
                 
             elif(price>=us_west["4xlarge"] and price<us_west["8xlarge"]):
                 count_of_8_west=int(price/us_west["4xlarge"])
@@ -226,6 +237,7 @@ def type_two(hours,price):
                 count_west.append(count_of_8_west)
                 countw+=1
                 
+                
             elif(price>=us_west["2xlarge"] and price<us_west["4xlarge"]):
                 count_of_4_west=int(price/us_west["2xlarge"])
                 price=round(price-(count_of_4_west*us_west["2xlarge"]),1)
@@ -233,39 +245,38 @@ def type_two(hours,price):
                 count_west.append(count_of_4_west)
                 countw+=1
                 
+                
             elif(price>=us_west["large"]):
                 count_of_1_west=int(price/us_west["large"])
                 price=round(price-(count_of_1_west*us_west["large"]),1)
                 new_nodes_west.append("large")
                 count_west.append(count_of_1_west)
                 countw+=1
+                
     
     price_east=cost*hours
     price_west=cost*hours
     server(new_nodes_east,count_east,counte,new_nodes_west,count_west,countw,price_east,price_west)
-
     
-        
 
 if(types==1):
     cpus=int(input())
     price_east=0
     price_west=0
-    type_one(cpus,hours,price_east,price_west)
-        
+    price=0
+    type_one(cpus,hours,price_east,price_west,price,1)
 
     
 elif(types==2):
     price=round(int(input("$")))
-    price/=hours
     type_two(hours,price)
-    
-        
-    
-    
-    
     
 
 elif(types==3):
     cpus=int(input())
     price=int(input("$"))
+    price_east=0
+    price_west=0
+    type_one(cpus,hours,price_east,price_west,price,3)
+    
+    
